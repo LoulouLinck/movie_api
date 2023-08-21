@@ -27,7 +27,7 @@ let topMovies = [
         author: 'Andrei Tarkovsky'
     },
     {
-      title: 'Der Himmel über Berlin',
+      title: 'Der Himmel uber Berlin',
       author: 'Wim Wenders '
     },
     {
@@ -35,7 +35,7 @@ let topMovies = [
       author: 'Akira Kurosawa'
     },
     {
-      title: 'Popiół i diament',
+      title: 'Popiol i diament',
       author: 'Andrzeja Wajdy'
     },
     {
