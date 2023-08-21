@@ -27,28 +27,28 @@ let topMovies = [
         author: 'Andrei Tarkovsky'
     },
     {
-      title: '',
-      author: ' '
+      title: 'Der Himmel über Berlin',
+      author: 'Wim Wenders '
     },
     {
-      title: '',
-      author: ' '
+      title: 'Ran',
+      author: 'Akira Kurosawa'
     },
     {
-      title: '',
-      author: ' '
+      title: 'Popiół i diament',
+      author: 'Andrzeja Wajdy'
     },
     {
-      title: '',
-      author: ' '
+      title: 'Tampopo',
+      author: 'Juzo Itami'
     },
     {
-      title: '',
-      author: ' '
+      title: 'Persona',
+      author: 'Ingmar Bergman'
     },
     {
-      title: '',
-      author: ' '
+      title: 'The Voice of the Moon',
+      author: 'Federico Fellini'
     },
   ];
   
