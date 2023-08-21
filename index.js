@@ -64,7 +64,16 @@ let topMovies = [
 //   app.get('/documentation', (req, res) => {                  
 //     res.sendFile('public/documentation.html', { root: __dirname });
 //   });
+// Returns movie list array
+  app.get('/movies', (req, res) => {
+    res.json(topMovies);
+  });
   
+// Error Handeling middleware function: set right before the app.listen()
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).send('Something broke!');
+  });
 
   // listen for requests
   app.listen(8080, () => {
