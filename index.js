@@ -53,13 +53,10 @@ let topMovies = [
   ];
   
   // GET requests
-    app.get('/movies', (req, res) => {
-    res.json(topMovies);
-  });
-  
+  //default text
   app.get('/', (req, res) => {
     res.send('Welcome to my movie club!');
-  });
+  });  
   
 // Returns movie list array
   app.get('/movies', (req, res) => {
