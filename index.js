@@ -7,6 +7,8 @@ const app = express();
 app.use(morgan('common'));
 
 // shortcut to avoid multiple res.send() for all files in public folder 
+app.use(express.static('public'));
+
 let topMovies = [
     {
       title: 'Revenge',
