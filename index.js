@@ -1,6 +1,12 @@
 const express = require('express');
+   morgan = require('morgan');
+
 const app = express();
 
+// setup logger
+app.use(morgan('common'));
+
+// shortcut to avoid multiple res.send() for all files in public folder 
 let topMovies = [
     {
       title: 'Revenge',
