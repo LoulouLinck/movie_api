@@ -3,43 +3,246 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link rel="stylesheet" href="../css/styles.css">
     <title>Documentation MyFlix API</title>
 </head>
 <body>
-    <h1>Introduction</h1>
-    <h5>Essential Features</h5>
-    <ul>
-        <li>Return a list of ALL movies to the user</li>
-        <li>Return data (description, genre, director, image URL, whether it’s featured or not) about a
-            single movie by title to the user</li>
-        <li>Return data about a genre (description) by name/title (e.g., “Thriller”)</li>
-        <li>Return data about a director (bio, birth year, death year) by name</li>
-        <li>Allow new users to register</li>
-        <li>Allow users to update their user info (username, password, email, date of birth)</li>
-        <li>Allow users to add a movie to their list of favorites</li>
-        <li>Allow users to remove a movie from their list of favorites</li>
-        <li>Allow existing users to deregister</li>
-    </ul>
+    <div class="container" id="title">
+        <h1>My Flix App</h1>
+        <p>
+            The web application will provide users with access to information about different
+			movies, directors, and genres. Users will be able to sign up, update their
+			personal information, and create a list of their favorite movies.
+        </p>
+    </div>
 
-    <h5>Technical Requirements</h5>
-    <ul>
-        <li>The API must be a Node.js and Express application.</li>
-        <li>The API must use REST architecture, with URL endpoints corresponding to the data
-operations listed above</li>
-        <li>The API must use at least three middleware modules, such as the body-parser package for
-reading data from requests and morgan for logging.</li>
-        <li>The API must use a “package.json” file.</li>
-        <li>The database must be built using MongoDB.</li>
-        <li>The business logic must be modeled with Mongoose.</li>
-        <li>The API must provide movie information in JSON format.</li>
-        <li>The JavaScript code must be error-free.</li>
-        <li>The API must be tested in Postman.</li>
-        <li>The API must include user authentication and authorization code.</li>
-        <li>The API must include data validation logic.</li>
-        <li>The API must meet data security regulations.</li>
-        <li>The API source code must be deployed to a publicly accessible platform like GitHub.</li>
-        <li>The API must be deployed to Heroku.</li>
-    </ul>
+    <div class="container">
+        <h2>Introduction</h2>
+        <h5>Essential Features</h5>
+            <ul>
+                <li>Return a list of ALL movies to the user</li>
+                <li>Return data (description, genre, director, image URL, whether it is featured or not) about a
+                    single movie by title to the user</li>
+                <li>Return data about a genre (description) by name/title (e.g., “Thriller”)</li>
+                <li>Return data about a director (bio, birth year, death year) by name</li>
+                <li>Allow new users to register</li>
+                <li>Allow users to update their user info (username, password, email, date of birth)</li>
+                <li>Allow users to add a movie to their list of favorites</li>
+                <li>Allow users to remove a movie from their list of favorites</li>
+                <li>Allow existing users to deregister</li>
+            </ul>
+
+        <h5>Technical Requirements</h5>
+            <ul>
+                <li>The API must be a Node.js and Express application.</li>
+                <li>The API must use REST architecture, with URL endpoints corresponding to the data operations listed above</li>
+                <li>The API must use at least three middleware modules, such as the body-parser package for reading data from requests and morgan for logging.</li>
+                <li>The API must use a “package.json” file.</li>
+                <li>The database must be built using MongoDB.</li>
+                <li>The business logic must be modeled with Mongoose.</li>
+                <li>The API must provide movie information in JSON format.</li>
+                <li>The JavaScript code must be error-free.</li>
+                <li>The API must be tested in Postman.</li>
+                <li>The API must include user authentication and authorization code.</li>
+                <li>The API must include data validation logic.</li>
+                <li>The API must meet data security regulations.</li>
+                <li>The API source code must be deployed to a publicly accessible platform like GitHub.</li>
+                <li>The API must be deployed to Heroku.</li>
+            </ul>
+    </div>
+    
+
+    <!-- table  -->
+	<div class="container">
+		<table class="table table-striped table-bordered table-responsive{-sm|-md|-lg|-xl}" style="width:100%">
+			<thead>
+				<tr>
+					<th class="col-2">Request</th>
+					<th class="col-1">URL</th>
+					<th class="col-1">HTTP Method</th>
+					<th class="col-3">Request body data format</th>
+					<th class="col-5">Response body data format</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>Get a list of ALL movies</td>
+					<td>/movies</td>
+					<td>GET</td>
+					<td>none</td>
+					<td>A JSON object holding an array with all movies.</td>
+				</tr>
+				<tr>
+					<td>Get data about a single movie by title</td>
+					<td>/movies/:Title</td>
+					<td>GET</td>
+					<td>None</td>
+					<td>A JSON object holding data about a single movie: description, genre, director, image URL,
+						whether these are featured or not:
+						<code>
+						{
+							"Title": "Ran",
+							"Description": "A powerful but elderly warlord, decides to divide his kingdom among his three sons ultimately starting a fatal rivalry in their quest for power.",
+							"Genre": {
+								"Name": "Drama",
+								"Description": "Drama is a category or genre of narrative fiction (or semi-fiction) intended to be more serious than humorous in tone. "
+							},
+							"Director": {
+								"Name": "Akira  Kurosawa",
+								"Bio": "Kurosawa Akira was a Japanese filmmaker who directed 30 films in a career spanning over five decades. He is widely regarded as one of the greatest and most influential filmmakers in the history of cinema. Kurosawa displayed a bold, dynamic style, strongly influenced by Western cinema yet distinct from it; he was involved with all aspects of film production.",
+								"Birth": 1910
+							},
+							"ImageURL": "www.critikat.com/wp-content/uploads/2016/04/artoff7462.jpg",
+							"Featured": false
+						}
+					</code>
+					</td>
+				</tr>
+				<tr>
+					<td>Get data/description about a genre by genre's name</td>
+					<td>/movies/genre/:genreName</td>
+					<td>GET</td>
+					<td>none</td>
+					<td>A JSON object holding data about a genre containing name and description properties. Example:
+						<code>
+							"Genre": {
+								"Name": "Drama",
+								"Description": "Is a category or genre of narrative fiction (or semi-fiction) intended to be more serious than humorous in tone."
+							}
+					</code>
+					</td>
+				</tr>
+				<tr>
+					<td>Get data about a director by director's name: bio, birth year, death year</td>
+					<td>/movies/directors/:directorName</td>
+					<td>GET</td>
+					<td>none</td>
+					<td>A JSON object holding data about a director:
+						<code>
+						{
+							"Name": "Kurosawa Akira",
+							"Bio": "A Japanese filmmaker who directed 30 films in a career spanning over five decades. He is widely regarded as one of the greatest and most influential filmmakers in the history of cinema. Kurosawa displayed a bold, dynamic style, strongly influenced by Western cinema yet distinct from it; he was involved with all aspects of film production.",
+							"Birth": "1910-1998"
+						}
+					</code>
+					</td>
+				</tr>
+				<tr>
+					<td>Add a new user</td>
+					<td>/users</td>
+					<td>POST</td>
+					<td>A JSON object holding user data, structured like this:
+						<code>
+						{
+							"Username": "Kim-Novak",
+							"Password": "Vertigo123",
+							"Email": "kim.novak@gmail.com",
+							"Birthday": "13-02-1933"
+						}
+					</code>
+					</td>
+					<td>A JSON object holding user data plus an ID and a array for placing favorite movies:
+						<code>
+						{
+							"Username": "Kim-Novak",
+							"Password": "Vertigo123",
+							"Email": "kim.novak@gmail.com",
+							"Birthday": "13-02-1933",
+							"FavoriteMovies": [],
+							"_id": "d224bc3f-6174-481b-836f-e3a210fe6a45",
+							"__v": 0
+					}
+					</code>
+					</td>
+				</tr>
+				<tr>
+					<td>Update user info</td>
+					<td>/users/:Username</td>
+					<td>PUT</td>
+					<td>A JSON object holding the user info that should be changed. It should contain at least one of the following key/value pairs:
+						<code>
+						{
+							"Username": String,
+							"Password": String,
+							"Email": String,
+							"Birthday": Data
+						}
+					</code>
+					</td>
+					<td>A JSON object holding all user info with all key/values pair updated:
+						<code>
+						{
+							"Username": "Loulou-Chi",
+							"Password": "Bananasplit",
+							"Email": "loulou.chi@gmail.com",
+							"Birthday": "06-04-1993",
+							"FavoriteMovies": [],
+							"_id": "d224bc3f-6174-481b-836f-e3a210fe6a45",
+							"__v": 0
+					}
+					</code>
+					</td>
+				</tr>
+				<tr>
+					<td>Add a movie to user's favorite list</td>
+					<td>/users/:Username/movies/:movieID</td>
+					<td>POST</td>
+					<td>None</td>
+					<td>A JSON object holding all user info with all key/values pair updated:
+						<code>
+						{
+							"Username": "Loulou-Chi",
+							"Password": "Bananasplit",
+							"Email": "loulou.chi@gmail.com",
+							"Birthday": "06-04-1993",
+							"FavoriteMovies": [],
+							"_id": "d224bc3f-6174-481b-836f-e3a210fe6a45",
+							"__v": 0
+					}
+					</code>
+					</td>
+				</tr>
+				<tr>
+					<td>Remove a movie from user's favorite list</td>
+					<td>/users/:Username/movies/:movieID</td>
+					<td>DELETE</td>
+					<td>None</td>
+					<td>A JSON object holding all user info with all key/values pair updated:
+						<code>
+						{
+							"Username": "Loulou-Chi",
+							"Password": "Bananasplit",
+							"Email": "loulou.chi@gmail.com",
+							"Birthday": "06-04-1993",
+							"FavoriteMovies": [],
+							"_id": "d224bc3f-6174-481b-836f-e3a210fe6a45",
+							"__v": 0
+					}
+					</code>
+					</td>
+				</tr>
+				<tr>
+					<td>Allow existing users to deregister</td>
+					<td>/users/:Username</td>
+					<td>DELETE</td>
+					<td>None</td>
+					<td>A text message indicating whether a user was successfully removed.</td>
+				</tr>
+			</tbody>
+		</table>
+
+	</div>
+<!-- imported scripts: jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"
+integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
+integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
+integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+crossorigin="anonymous"></script>
     
 </body>
 </html>
