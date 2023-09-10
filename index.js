@@ -1,17 +1,17 @@
 const express = require('express'),
    morgan = require('morgan'),
-   bodyParser = require('body-parser'),
+   bodyParser = require('body-parser'), // not needed? comes together w/ Express above v.4.16
    uuid = require('uuid');
+   mongoose = require('mongoose');
+   Models = require('./models.js'); //require models defined models.js file
 
 const app = express();
+const Movies = Models.Movie; //ref to model names in model.js
+const Users = Models.User;
 
-app.use(bodyParser.json()); // middleware applying bodyParser package to allow reading data from body object
+mongoose.connect('mongodb://127.0.0.1:27017/myFlixDB', { useNewUrlParser: true, useUnifiedTopology: true }); //connects Mongoose w/ DB to perform CRUD op. on documents from w/in our REST API
 
-// setup logger
-app.use(morgan('common'));
 
-// shortcut to avoid multiple res.send() for all files in public folder 
-app.use(express.static('public'));
 
 let topMovies = [
     {
@@ -180,6 +180,10 @@ let topMovies = [
     },
   ];
   
+app.use(morgan('common')); // setup logger: logs requests to server
+app.use(express.static('public')); // shortcut to avoid multiple res.send() for all files in public folder //or app.use('documentation', express.static('public'))?
+app.use(express.json()); // import body-parser when Express above v4.16
+app.use(express.urlencoded({ extended: true }));
 
   // GET/READ requests
   //default text
