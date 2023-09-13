@@ -1,0 +1,4 @@
+{"_id":{"$oid":"64fba9f7dcf5f2ad100e6f54"},"Username":"Lou","Password":"Vertigo123","Email":"loulou@gmail.com","Birthday":"1993-04-06","FavouriteMovies":[{"$oid":"64fb9262dcf5f2ad100e6f4e"}]}
+{"_id":{"$oid":"64fbad4edcf5f2ad100e6f55"},"Username":"Chichi","Password":"Napcae101","Email":"napcae@gmail.com","Birthday":"1991-10-18","FavouriteMovies":[]}
+{"_id":{"$oid":"64fbadb8dcf5f2ad100e6f56"},"Username":"BlueRacoon","Password":"ImACat-Dog","Email":"BlueRacoon@gmail.com","Birthday":"2005-06-30","FavouriteMovies":[]}
+{"_id":{"$oid":"64fbae0edcf5f2ad100e6f57"},"Username":"TippiHedren","Password":"HitchcockKilledMe","Email":"Tippitip@gmail.com","Birthday":"1930-01-19","FavouriteMovies":[]}
