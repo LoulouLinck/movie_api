@@ -4,7 +4,7 @@ const express = require('express'),
    uuid = require('uuid');
    mongoose = require('mongoose');
    Models = require('./models.js'); //require models defined models.js file
-const { check, validationResult } = require('express-validator');
+const { check, validationResult } = require('express-validator'); //validates username, pw: user imputs on the server side. Ensures no malicious code and imputs follow set constrains
 const app = express();
 const Movies = Models.Movie; //ref to model names in model.js
 const Users = Models.User;
@@ -51,7 +51,7 @@ const passport = require('passport'); require('./passport');
 app.get('/movies', passport.authenticate('jwt', { session: false }), async (req, res) => {
   await Movies.find()
     .then((movies) => {
-      res.status(201).json(movies);
+      return res.status(201).json(movies);
     })
     .catch((error) => {
       console.error(error);
@@ -161,19 +161,19 @@ async(req, res) => {
 // Creates new user 
 app.post('/users', 
 // Validation logic for request
-[
+[ 
+  // check('field in req.body to validate', 'error message if validation fails').validation method({});
   check('Username', 'Username is required').isLength({min: 5}),
   check('Username', 'Username contains non alphanumeric characters - not allowed.').isAlphanumeric(),
   check('Password', 'Password is required').not().isEmpty(),
   check('Email', 'Email does not appear to be valid').isEmail()
-], async (req, res) => {
-
-// check the validation object for errors
-let errors = validationResult(req);
-
-if (!errors.isEmpty()) {
-  return res.status(422).json({ errors: errors.array() });
-}
+], 
+async (req, res) => {
+ // check the validation object for errors
+  let errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(422).json({ errors: errors.array() });
+   }
 
   let hashedPassword = Users.hashPassword(req.body.Password); // hashes password before storing it MongoDB
   await Users.findOne({ Username: req.body.Username}) // Search to see if a user with the requested username already exists
@@ -224,7 +224,19 @@ app.post('/users/:Username/movies/:MovieID', passport.authenticate("jwt", { sess
 // PUT/UPDATE requests
 // update user's info by username if username in req.body = username in req.para (security breach)
 app.put('/users/:Username',  passport.authenticate("jwt", { session: false }),
+[
+  // check('field in req.body to validate', 'error message if validation fails').'validation method'({});
+  check("username", "username is required").isLength({ min: 5 }),
+  check("username", "username contains non alphanumeric characters - not allowed!").isAlphanumeric(),
+  check("password", "password is required").not().isEmpty(),
+  check("email", "email is not valid").isEmail(),
+],
 async (req, res) => {
+   //check validation object for errors
+   let errors = validationResult(request);
+   if (!errors.isEmpty()) {
+     return response.status(422).json({ errors: errors.array() });
+   }
   // Conditions
   if(req.user.Username !== req.params.Username){
     return res.status(400).send('Permission denied');
