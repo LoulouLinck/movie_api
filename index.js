@@ -37,7 +37,8 @@ app.use(cors({ // grants access to API to specified domains
 
 
 let auth = require('./auth')(app); // Import our “auth.js” file into our project. Argument (app)passed to ensure Express available in “auth.js" 
-const passport = require('passport'); require('./passport');
+const passport = require('passport'); 
+require('./passport');
 
 
   // GET/READ requests
