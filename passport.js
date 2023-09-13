@@ -2,7 +2,7 @@ const passport = require('passport'),
   LocalStrategy = require('passport-local').Strategy,
   Models = require('./models.js'),
   passportJWT = require('passport-jwt');
-//{ model } = require("mongoose");
+//{ model } = require("mongoose"); why commented out?
 
 
 let Users = Models.User,
