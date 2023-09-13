@@ -242,6 +242,7 @@ async (req, res) => {
     return res.status(400).send('Permission denied');
 }
 // End conditions
+let hashedPassword = Users.hashPassword(request.body.password);
   await Users.findOneAndUpdate({ Username: req.params.Username }, { $set:
     {
       Username: req.body.Username,
