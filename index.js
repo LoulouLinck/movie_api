@@ -97,7 +97,7 @@ async (req, res) => { // why 'movies/title/:Title' also works?
 //Gets data on genre by genre name as a response to '/movies/genres/:genreName'
 app.get('/movies/genres/:genreName',  passport.authenticate("jwt", { session: false }),
 async (req, res) => {
-   await Movies.findOne({ 'genre.name': req.params.genreName })
+   await Movies.findOne({ 'Genre.Name': req.params.genreName }) //fixed bug capitalised Genre.Name
     .then((genre) => {
       if(!genre) {
         return res.status(404).send('Error: ' + req.params.genreName + ' was not found');
@@ -114,7 +114,7 @@ async (req, res) => {
 // Gets director data by name as response to '/movies/directors/:Director'
 app.get('/movies/directors/:directorName', passport.authenticate("jwt", { session: false }),
 async(req, res) => {
-  await Movies.findOne({ 'director.name': req.params.directorName })
+  await Movies.find({ 'Director.Name': req.params.directorName }) //fixed bug: changed 'findOne' to 'find' and director.name to Director.Name
     .then((director) => {
       if (!director) {
         return res.status(404).send('Error: ' + req.params.directorName + ' was not found.');
