@@ -50,16 +50,19 @@ require('./passport');
 // MOVIES ENDPOINTS
   
 // Returns JSON object: movie list array as response to '/movies'
-app.get('/movies', passport.authenticate('jwt', { session: false }), async (req, res) => {
-  await Movies.find()
-    .then((movies) => {
-      return res.status(201).json(movies);
-    })
-    .catch((error) => {
-      console.error(error);
-      res.status(500).send('Error: ' + error);
-    });
-});
+app.get('/movies', 
+//  passport.authenticate('jwt', { session: false }),//commented out for EX 3:4
+ async (req, res) => {
+   await Movies.find()
+     .then((movies) => {
+       return res.status(201).json(movies);
+     })
+     .catch((error) => {
+       console.error(error);
+       res.status(500).send('Error: ' + error);
+     });
+  }
+);
 
 // Gets movie data by name as a response to '/movies/:Title'
 app.get('/movies/:Title', passport.authenticate("jwt", { session: false }),
