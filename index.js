@@ -22,7 +22,7 @@ app.use(express.urlencoded({ extended: true }));
 
 const cors = require('cors');
 // app.use(cors()); // precises app uses CORS: allows req. from all origins by default
-let allowedOrigins = ['http://localhost:1234', 'http://localhost:8080', 'http://testsite.com']; // sets list of allowed origins
+let allowedOrigins = ['http://localhost:10000', 'http://localhost:1234', 'http://localhost:8080', 'http://testsite.com']; // sets list of allowed origins
 
 app.use(cors({ // grants access to API to specified domains
   origin: (origin, callback) => {
