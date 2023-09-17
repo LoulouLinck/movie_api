@@ -96,37 +96,40 @@ async (req, res) => { // why 'movies/title/:Title' also works?
 
 //Gets data on genre by genre name as a response to '/movies/genres/:genreName'
 app.get('/movies/genres/:genreName',  passport.authenticate("jwt", { session: false }),
-async (req, res) => {
-   await Movies.findOne({ 'Genre.Name': req.params.genreName }) //fixed bug capitalised Genre.Name
-    .then((genre) => {
-      if(!genre) {
-        return res.status(404).send('Error: ' + req.params.genreName + ' was not found');
-      } else {
-      res.status(200).json(genre);
+  async (req, res) => {
+    console.log('genre: ', req.params.genreName)
+     await Movies.find({ 'Genre.Name': req.params.genreName }) //fixed bug capitalised Genre.Name, changed findONe to find
+      .then((genre) => {
+        if(!genre) {
+          return res.status(404).send('Error: ' + req.params.genreName + ' was not found');
+        } else {
+         res.status(200).json(genre);
       }
     })
     .catch((err) => {
       console.error(err);
       res.status(500).send('Error: ' + err);
     });
-});
+  }
+);
 
 // Gets director data by name as response to '/movies/directors/:Director'
 app.get('/movies/directors/:directorName', passport.authenticate("jwt", { session: false }),
-async(req, res) => {
-  await Movies.find({ 'Director.Name': req.params.directorName }) //fixed bug: changed 'findOne' to 'find' and director.name to Director.Name
-    .then((director) => {
-      if (!director) {
-        return res.status(404).send('Error: ' + req.params.directorName + ' was not found.');
-      } else {
-      res.status(200).json(director);
+  async(req, res) => {
+    await Movies.find({ 'Director.Name': req.params.directorName }) //fixed bug: changed 'findOne' to 'find' and director.name to Director.Name
+      .then((director) => {
+        if (!director) {
+          return res.status(404).send('Error: ' + req.params.directorName + ' was not found.');
+        } else {
+         res.status(200).json(director);
       }
     })
     .catch((err) => {
       console.error(err);
       res.status(500).send('Error: ' + err);
     });
-});
+  }
+);
 
 //USERS ENDPOINTS
 
