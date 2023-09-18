@@ -21,19 +21,19 @@ app.use(express.json()); // import body-parser when Express above v4.16
 app.use(express.urlencoded({ extended: true }));
 
 const cors = require('cors');
-// app.use(cors()); // precises app uses CORS: allows req. from all origins by default
-let allowedOrigins = ['http://localhost:10000', 'http://localhost:1234', 'http://localhost:8080', 'http://testsite.com']; // sets list of allowed origins
+app.use(cors()); // precises app uses CORS: allows req. from all origins by default
+// let allowedOrigins = ['http://localhost:10000', 'http://localhost:1234', 'http://localhost:8080', 'http://testsite.com']; // sets list of allowed origins
 
-app.use(cors({ // grants access to API to specified domains
-  origin: (origin, callback) => {
-    if(!origin) return callback(null, true);
-    if(allowedOrigins.indexOf(origin) === -1){ // If a specific origin isn’t found on the list of allowed origins
-      let message = 'The CORS policy for this application doesn\'t allow access from origin ' + origin;
-      return callback(new Error(message ), false);
-    }
-    return callback(null, true);
-  }
-}));
+// app.use(cors({ // grants access to API to specified domains
+//   origin: (origin, callback) => {
+//     if(!origin) return callback(null, true);
+//     if(allowedOrigins.indexOf(origin) === -1){ // If a specific origin isn’t found on the list of allowed origins
+//       let message = 'The CORS policy for this application doesn\'t allow access from origin ' + origin;
+//       return callback(new Error(message ), false);
+//     }
+//     return callback(null, true);
+//   }
+// }));
 
 
 let auth = require('./auth')(app); // Import our “auth.js” file into our project. Argument (app)passed to ensure Express available in “auth.js" 
