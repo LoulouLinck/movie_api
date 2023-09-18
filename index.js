@@ -9,8 +9,8 @@ const app = express();
 const Movies = Models.Movie; //ref to model names in model.js
 const Users = Models.User;
 
-// mongoose.connect('mongodb://127.0.0.1:27017/myFlixDB', { useNewUrlParser: true, useUnifiedTopology: true }); //connects Mongoose w/ DB to perform CRUD op. on documents from w/in our REST API
-mongoose.connect('process.env.CONNECTION_URI', { useNewUrlParser: true, useUnifiedTopology: true }); //connects online DB to online API on Render. Here 'connection string/connection URI' replaced by environment variable
+mongoose.connect('mongodb://127.0.0.1:27017/myFlixDB', { useNewUrlParser: true, useUnifiedTopology: true }); //connects Mongoose w/ DB to perform CRUD op. on documents from w/in our REST API
+// mongoose.connect('process.env.CONNECTION_URI', { useNewUrlParser: true, useUnifiedTopology: true }); //connects online DB to online API on Render. Here 'connection string/connection URI' replaced by environment variable
 
 app.use(bodyParser.json()); // not needed? comes together w/ Express above v.4.16 (middleware applying bodyParser package to allow reading data from body object)
 
@@ -184,7 +184,7 @@ async (req, res) => {
    }
 
   let hashedPassword = Users.hashPassword(req.body.Password); // hashes password before storing it MongoDB
-  await Users.find({ Username: req.body.Username}) // Search to see if a user with the requested username already exists
+  await Users.findOne({ Username: req.body.Username}) // Search to see if a user with the requested username already exists
      .then ((user) => {
         if (user) { //If the user is found, send a response that it already exists
          return res.status(400).send(req.body.Username + 'already exists');
