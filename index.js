@@ -234,23 +234,23 @@ app.post('/users/:Username/movies/:MovieID', passport.authenticate("jwt", { sess
 app.put('/users/:Username',  passport.authenticate("jwt", { session: false }),
 [
   // check('field in req.body to validate', 'error message if validation fails').'validation method'({});
-  check("username", "username is required").isLength({ min: 5 }),
-  check("username", "username contains non alphanumeric characters - not allowed!").isAlphanumeric(),
-  check("password", "password is required").not().isEmpty(),
-  check("email", "email is not valid").isEmail(),
+  check('Username', 'Username is required').isLength({ min: 5 }),
+  check('Username', 'Username contains non alphanumeric characters - not allowed!').isAlphanumeric(),
+  check('Password', 'Password is required').not().isEmpty(),
+  check('Email', 'Email is not valid').isEmail(),
 ],
 async (req, res) => {
    //check validation object for errors
-   let errors = validationResult(request);
+   let errors = validationResult(req);
    if (!errors.isEmpty()) {
-     return response.status(422).json({ errors: errors.array() });
+     return res.status(422).json({ errors: errors.array() });
    }
   // Conditions
   if(req.user.Username !== req.params.Username){
     return res.status(400).send('Permission denied');
 }
 // End conditions
-let hashedPassword = Users.hashPassword(request.body.password);
+let hashedPassword = Users.hashPassword(req.body.Password);
   await Users.findOneAndUpdate({ Username: req.params.Username }, { $set:
     {
       Username: req.body.Username,
