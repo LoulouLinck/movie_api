@@ -101,12 +101,12 @@ async (req, res) => { // why 'movies/title/:Title' also works?
 app.get('/movies/genres/:genreName',  passport.authenticate("jwt", { session: false }),
   async (req, res) => {
     console.log('genre: ', req.params.genreName)
-     await Movies.find({ 'Genre.Name': req.params.genreName }) //fixed bug capitalised Genre.Name, changed findONe to find
-      .then((genre) => {
-        if(!genre) {
+     await Movies.findOne({ 'Genre.Name': req.params.genreName }) //fixed bug capitalised Genre.Name, changed findONe to find
+      .then((movies) => {
+        if(!movies) {
           return res.status(404).send('Error: ' + req.params.genreName + ' was not found');
         } else {
-         res.status(200).json(genre);
+         res.status(200).json(movies.Genre);
       }
     })
     .catch((err) => {
@@ -119,12 +119,14 @@ app.get('/movies/genres/:genreName',  passport.authenticate("jwt", { session: fa
 // Gets director data by name as response to '/movies/directors/:Director'
 app.get('/movies/directors/:directorName', passport.authenticate("jwt", { session: false }),
   async(req, res) => {
-    await Movies.find({ 'Director.Name': req.params.directorName }) //fixed bug: changed 'findOne' to 'find' and director.name to Director.Name
-      .then((director) => {
-        if (!director) {
-          return res.status(404).send('Error: ' + req.params.directorName + ' was not found.');
+    await Movies.findOne({ 'Director.Name': req.params.directorName }) //fixed bug: changed 'findOne' to 'find' and director.name to Director.Name
+      .then((movie) => {
+        if (!movie) {
+          return res
+          .status(404)
+          .send('Error: ' + req.params.directorName + ' was not found.');
         } else {
-         res.status(200).json(director);
+         res.status(200).json(movie.Director);
       }
     })
     .catch((err) => {
