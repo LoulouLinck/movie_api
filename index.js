@@ -51,7 +51,7 @@ require('./passport');
   
 // Returns JSON object: movie list array as response to '/movies'
 app.get('/movies', 
-//  passport.authenticate('jwt', { session: false }),//commented out for EX 3:4
+ passport.authenticate('jwt', { session: false }),
  async (req, res) => {
    await Movies.find()
      .then((movies) => {
