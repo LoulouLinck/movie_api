@@ -22,7 +22,7 @@ app.use(express.urlencoded({ extended: true }));
 
 const cors = require('cors');
 // app.use(cors()); // precises app uses CORS: allows req. from all origins by default
-let allowedOrigins = ['https://cineflixxx.netlify.app/', 'https://cineflixxx.netlify.app', 'http://localhost:10000', 'http://localhost:1234', 'http://localhost:8080']; // sets list of allowed origins
+let allowedOrigins = ['https://cineflixxx.netlify.app/', 'https://cineflixxx.netlify.app', 'https://cineflix-sqlk.onrender.com', 'http://localhost:10000', 'http://localhost:1234', 'http://localhost:8080']; // sets list of allowed origins
 
 app.use(cors({ // grants access to API to specified domains
   origin: (origin, callback) => {
