@@ -1,6 +1,7 @@
 # movie_api
- MyFlix app
- **Link to App:** https://louloulinck.github.io/movie_api/
+
+ MyFlix app  **Link to App:**  https://cineflixxx.netlify.app/
+ Link to <a href="https://github.com/LoulouLinck/movie_api">movie_api.</a>
 <!-- TABLE OF CONTENTS -->
 
 # 📗 Table of Contents
