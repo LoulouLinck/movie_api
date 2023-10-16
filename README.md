@@ -1,6 +1,7 @@
 # movie_api
 
  **Link to CineFlix App:**  https://cineflixxx.netlify.app/
+ <br>
  Link to <a href="https://github.com/LoulouLinck/movie_api">movie_api.</a>
 <!-- TABLE OF CONTENTS -->
 
