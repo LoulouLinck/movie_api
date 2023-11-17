@@ -1,25 +1,83 @@
+// CONFIGURATIONS
+
+/**
+ * @module express
+ */
 const express = require('express'),
-   morgan = require('morgan'),
-   bodyParser = require('body-parser'), // not needed? comes together w/ Express above v.4.16
-   uuid = require('uuid');
-   mongoose = require('mongoose');
-   Models = require('./models.js'); //require models defined models.js file
+
+/**
+ * @module morgan
+ */
+morgan = require('morgan'),
+
+/**
+ * @module bodyParser
+ */
+bodyParser = require('body-parser'), // not needed? comes together w/ Express above v.4.16
+
+/**
+ * @module uuid
+ */
+uuid = require('uuid');
+
+/**
+ * @module mongoose
+ */
+mongoose = require('mongoose');
+
+/**
+ * Models for the application.
+ * @module models
+ */
+Models = require('./models.js'); //require models defined models.js file
+
+/**
+ * Validation tools.
+ * @module express-validator
+ */
 const { check, validationResult } = require('express-validator'); //validates username, pw: user imputs on the server side. Ensures no malicious code and imputs follow set constrains
+
+/**
+ * Initialize express.
+ * @type {Object}
+ */
 const app = express();
+
+/**
+ * Movies model from the Models module.
+ * @const
+ */
 const Movies = Models.Movie; //ref to model names in model.js
+
+/**
+ * Users model from the Models module.
+ * @const
+ */
 const Users = Models.User;
 
+// DATABASE CONNECTION
+
 // mongoose.connect('mongodb://127.0.0.1:27017/myFlixDB', { useNewUrlParser: true, useUnifiedTopology: true }); //connects Mongoose w/ DB to perform CRUD op. on documents from w/in our REST API
-mongoose.connect(process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true }); //connects online DB to online API on Render. Here 'connection string/connection URI' replaced by environment variable
+mongoose //connects online DB to online API on Render. Here 'connection string/connection URI' replaced by environment variable
+   .connect(process.env.CONNECTION_URI, { 
+    useNewUrlParser: true, 
+    useUnifiedTopology: true 
+  });
 
 app.use(bodyParser.json()); // not needed? comes together w/ Express above v.4.16 (middleware applying bodyParser package to allow reading data from body object)
 
+// MIDDLEWARE
 
 app.use(morgan('common')); // setup logger: logs requests to server
 app.use(express.static('public')); // shortcut to avoid multiple res.send() for all files in public folder //or app.use('documentation', express.static('public'))?
 app.use(express.json()); // import body-parser when Express above v4.16
 app.use(express.urlencoded({ extended: true }));
 
+
+/**
+ * Configuration for CORS.
+ * @const
+ */
 const cors = require('cors');
 app.use(cors()); // precises app uses CORS: allows req. from all origins by default
 // let allowedOrigins = ['https://cineflixxx.netlify.app/', 'https://cineflixxx.netlify.app', 'https://cineflix-sqlk.onrender.com', 'http://localhost:10000', 'http://localhost:1234', 'http://localhost:8080']; // sets list of allowed origins
@@ -35,21 +93,27 @@ app.use(cors()); // precises app uses CORS: allows req. from all origins by defa
 //   }
 // }));
 
-
+/** Initialize Passport. */
 let auth = require('./auth')(app); // Import our “auth.js” file into our project. Argument (app)passed to ensure Express available in “auth.js" 
 const passport = require('passport'); 
 require('./passport');
 
+// ROUTES
 
-  // GET/READ requests
-  //Gets default text as a response to '/'
+  /** 
+  * GET/READ requests
+  * Gets default text as a response to '/' 
+  */
   app.get('/', (req, res) => {
     res.send('Welcome to my movie club!');
   });  
 
-// MOVIES ENDPOINTS
-  
-// Returns JSON object: movie list array as response to '/movies'
+/**
+ * Gets all the movies
+ * @name getMovies
+ * @returns {Array} A list of movies.
+ * @kind function
+ */
 app.get('/movies', 
  passport.authenticate('jwt', { session: false }),
  async (req, res) => {
@@ -64,8 +128,16 @@ app.get('/movies',
   }
 );
 
-// Gets movie data by name as a response to '/movies/:Title'
-app.get('/movies/:Title', passport.authenticate("jwt", { session: false }),
+/**
+ * Gets movie by title.
+ * @name getMovie
+ * @param {string} Title - Movie title.
+ * @returns {Object} The found movie.
+ * @kind function
+ */
+app.get(
+  '/movies/:Title', 
+  passport.authenticate("jwt", { session: false }),
 async (req, res) => { // why 'movies/title/:Title' also works?
   await Movies.findOne({ Title: req.params.Title })
     .then((movies) => {
@@ -80,25 +152,15 @@ async (req, res) => { // why 'movies/title/:Title' also works?
     });
 });
 
-// // Returns movie by genre name as a response to '/movies/genre/:Genre'
-// app.get('/movies/genre/:Genre', passport.authenticate("jwt", { session: false }),
-// async (req, res) => { 
-// 	await Movies.find({ 'Genre.Name': req.params.Genre })
-// 		.then((movies) => {
-// 			if (movies.length == 0) {
-// 				return res.status(404).send('Error: no movies found with the ' + req.params.Genre + ' genre type.');
-// 			} else {
-// 				res.status(200).json(movies);
-// 			}
-// 		})
-// 		.catch((err) => {
-// 			console.error(err);
-// 			res.status(500).send('Error: ' + err);
-// 		});
-// });
-
-//Gets data on genre by genre name as a response to '/movies/genres/:genreName'
-app.get('/movies/genres/:genreName',  passport.authenticate("jwt", { session: false }),
+/**
+ * Gets a genre
+ * @name getGenre
+ * @param {string} genreName genreName
+ * @kind function
+ */
+app.get(
+  '/movies/genres/:genreName',  
+  passport.authenticate("jwt", { session: false }),
   async (req, res) => {
     console.log('genre: ', req.params.genreName)
      await Movies.findOne({ 'Genre.Name': req.params.genreName }) //fixed bug capitalised Genre.Name, changed findONe to find
@@ -116,8 +178,16 @@ app.get('/movies/genres/:genreName',  passport.authenticate("jwt", { session: fa
   }
 );
 
-// Gets director data by name as response to '/movies/directors/:Director'
-app.get('/movies/directors/:directorName', passport.authenticate("jwt", { session: false }),
+/**
+ * Gets a director by Name
+ * @name getDirector
+ * @param {string} directorName directorName
+ * @returns {Object} The found director.
+ * @kind function
+ */
+app.get(
+  '/movies/directors/:directorName', 
+  passport.authenticate("jwt", { session: false }),
   async(req, res) => {
     await Movies.findOne({ 'Director.Name': req.params.directorName }) //fixed bug: changed 'findOne' to 'find' and director.name to Director.Name
       .then((movie) => {
@@ -136,39 +206,16 @@ app.get('/movies/directors/:directorName', passport.authenticate("jwt", { sessio
   }
 );
 
-//USERS ENDPOINTS
+// USERS ENDPOINTS
 
-// // Gets user list as response to '/users' // should be delete since access to other users = security breach?
-//    app.get('/users',  passport.authenticate("jwt", { session: false }),
-//    async function (req, res) {
-//     await Users.find()
-//     .then(function (users) {
-//       res.status(201).json(users);
-//     })
-//     .catch(function (err) {
-//       console.error(err);
-//       res.status(500).send('Error: ' + err);
-//     });
-//    });
-
-// // Gets user by username as response to '/users/:Username' // should be delete since = security breach?
-// app.get('/users/:Username', async (req, res) => {
-//   await Users.findOne({ Username: req.params.Username })
-//     .then((user) => {
-//       if (!user) {
-//         return res.status(404).send('Error: ' + req.params.Username + ' was not found');
-//       } else {
-//               res.json(user);
-//       }
-//   })
-//     .catch((err) => {
-//       console.error(err);
-//       res.status(500).send('Error: ' + err);
-//     });
-// });
-
-// POST/CREATE REQUESTS w/ Mongoose promise function
-// Creates new user 
+/**
+ * Creates new user 
+ * @name registerUser
+ * @param {string} Username username
+ * @param {string} Password password
+ * @param {string} Email email
+ * @kind function
+ */
 app.post('/users', 
 // Validation logic for request
 [ 
@@ -210,8 +257,16 @@ async (req, res) => {
   });
 });
 
-// add favourite movie to user's list 
-app.post('/users/:Username/movies/:MovieID', passport.authenticate("jwt", { session: false }),
+/**
+ * Adds favourite movie to user's list 
+ * @name addFavoriteMovie
+ * @param {string} Username username
+ * @param {string} MovieId movieid
+ * @kind function
+ */
+app.post(
+  '/users/:Username/movies/:MovieID', 
+  passport.authenticate("jwt", { session: false }),
  async (req, res) => {
   await Users.findOneAndUpdate({ Username: req.params.Username }, {
      $addToSet: { FavouriteMovies: req.params.MovieID },
@@ -230,10 +285,17 @@ app.post('/users/:Username/movies/:MovieID', passport.authenticate("jwt", { sess
   });
 });
 
-
-// PUT/UPDATE requests
-// update user's info by username if username in req.body = username in req.para (security breach)
-app.put('/users/:Username',  passport.authenticate("jwt", { session: false }),
+/**
+ * Updates existing user info by username if username in req.body = username in req.para (security breach)
+ * @name updateUser
+ * @param {string} Username username
+ * @param {string} Password password
+ * @param {string} Email email
+ * @kind function
+ */
+app.put(
+  '/users/:Username',  
+  passport.authenticate("jwt", { session: false }),
 [
   // check('field in req.body to validate', 'error message if validation fails').'validation method'({});
   check('Username', 'Username is required').isLength({ min: 5 }),
@@ -276,14 +338,22 @@ let hashedPassword = Users.hashPassword(req.body.Password);
 });
 
 
-// DELETE
-// removes movie from user's list
-app.delete('/users/:Username/movies/:MovieID', passport.authenticate("jwt", { session: false }),
-async (req, res) => {
+// DELETE ENDPOINTS
+
+/**
+ * Removes movie from user's list
+ * @name removeFavoriteMovie
+ * @param {string} Username username
+ * @param {string} MovieId movieid
+ * @kind function
+ */
+app.delete(
+  '/users/:Username/movies/:MovieID', 
+  passport.authenticate("jwt", { session: false }),
+  async (req, res) => {
 	await Users.findOneAndUpdate(
 		{ Username: req.params.Username },
-		{ $pull: { FavouriteMovies: req.params.MovieID },
-		},
+		{ $pull: { FavouriteMovies: req.params.MovieID },},
 		{ new: true }
 	)
 		.then((updatedUser) => {
@@ -299,9 +369,16 @@ async (req, res) => {
 		});
 });
 
-// user deregistration
-app.delete('/users/:Username',  passport.authenticate("jwt", { session: false }),
-async (req, res) => {
+/**
+ * User deregistration
+ * @name deleteUser
+ * @param {string} Username username
+ * @kind function
+ */
+app.delete(
+  '/users/:Username',
+  passport.authenticate("jwt", { session: false }),
+  async (req, res) => {
   await Users.findOneAndRemove({ Username: req.params.Username })
     .then((deletedUser) => {
       if (!deletedUser) {
