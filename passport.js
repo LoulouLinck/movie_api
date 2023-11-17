@@ -4,18 +4,29 @@ const passport = require('passport'),
   passportJWT = require('passport-jwt');
 //{ model } = require("mongoose"); why commented out?
 
-
+/**
+ * The User model from the models module.
+ * @type {Object}
+ */
 let Users = Models.User,
   JWTStrategy = passportJWT.Strategy,
   ExtractJWT = passportJWT.ExtractJwt;
 
-//1st loggin
+/** 
+ * Logic for 1st loggin authentification
+ * uses a username and password
+ */
 passport.use(
   new LocalStrategy(
     {
       usernameField: 'Username',
       passwordField: 'Password',
     },
+    /**
+   * @param {string} username - Username provided by user
+   * @param {string} password - Password provided by user
+   * @param {function} callback - Callback executed when authentication over
+   */
     async (username, password, callback) => {
       console.log(`${username} ${password}`);
       await Users.findOne({ Username: username })
@@ -26,7 +37,7 @@ passport.use(
             message: 'Incorrect username or password.',
           });
         }
-        if (!user.validatePassword(password)) { //Hashes password before comparing it to that in MongoDB
+        if (!user.validatePassword(password)) { // Hashes password before comparing it to that in MongoDB
           console.log('incorrect password');
           return callback(null, false, { message: 'Incorrect password.' });
         }
@@ -43,13 +54,21 @@ passport.use(
   )
 );
 
-// 1st login generates JWT token for future auth
+/**
+ * 1st login generates JWT token for future auth:
+ * JWT logic to handle JWT-based authentication.
+ * Protects routes requiring valid JWT token.
+ */
 passport.use(
     new JWTStrategy(
         {
           jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
            secretOrKey: 'your_jwt_secret'
-        }, 
+        },
+         /**
+         * @param {Object} jwtPayload - The decoded JWT payload.
+         * @param {function} callback - A callback to be executed once the JWT is verified.
+         */ 
         async (jwtPayload, callback) => {
           return await Users.findById(jwtPayload._id)
             .then((user) => {
