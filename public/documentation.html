@@ -74,6 +74,8 @@
 				</tr>
 			</thead>
 			<tbody>
+
+				<!-- request default greeting message -->
 				<tr>
 					<td>Get default text message</td>
 					<td>/</td>
@@ -81,75 +83,8 @@
 					<td>none</td>
 					<td>String message</td>
 				</tr>
-				<tr>
-					<td>Get a list of ALL movies</td>
-					<td>/movies</td>
-					<td>GET</td>
-					<td>none</td>
-					<td>A JSON object holding an array with all movies.</td>
-				</tr>
-				<tr>
-					<td>Get a list of ALL users</td>
-					<td>/users</td>
-					<td>GET</td>
-					<td>none</td>
-					<td>A JSON object holding an array with all users.</td>
-				</tr>
-				<tr>
-					<td>Get data about a single movie by title</td>
-					<td>/movies/:Title</td>
-					<td>GET</td>
-					<td>None</td>
-					<td>A JSON object holding data about a single movie: description, genre, director, image URL,
-						whether these are featured or not:
-						<code>
-						{
-							"Title": "Ran",
-							"Description": "A powerful but elderly warlord, decides to divide his kingdom among his three sons ultimately starting a fatal rivalry in their quest for power.",
-							"Genre": {
-								"Name": "Drama",
-								"Description": "Drama is a category or genre of narrative fiction (or semi-fiction) intended to be more serious than humorous in tone. "
-							},
-							"Director": {
-								"Name": "Akira  Kurosawa",
-								"Bio": "Kurosawa Akira was a Japanese filmmaker who directed 30 films in a career spanning over five decades. He is widely regarded as one of the greatest and most influential filmmakers in the history of cinema. Kurosawa displayed a bold, dynamic style, strongly influenced by Western cinema yet distinct from it; he was involved with all aspects of film production.",
-								"Birth": 1910
-							},
-							"ImageURL": "www.critikat.com/wp-content/uploads/2016/04/artoff7462.jpg",
-							"Featuredd": false
-						}
-					</code>
-					</td>
-				</tr>
-				<tr>
-					<td>Get data/description about a genre by genre's name</td>
-					<td>/movies/genre/:genreName</td>
-					<td>GET</td>
-					<td>none</td>
-					<td>A JSON object holding data about a genre containing name and description properties. Example:
-						<code>
-							"Genre": {
-								"Name": "Drama",
-								"Description": "Is a category or genre of narrative fiction (or semi-fiction) intended to be more serious than humorous in tone."
-							}
-					</code>
-					</td>
-				</tr>
-				<tr>
-					<td>Get data about a director by director's name: bio, birth year, death year</td>
-					<td>/movies/directors/:directorName</td>
-					<td>GET</td>
-					<td>none</td>
-					<td>A JSON object holding data about a director:
-						<code>
-						{
-							"Name": "Kurosawa Akira",
-							"Bio": "A Japanese filmmaker who directed 30 films in a career spanning over five decades. He is widely regarded as one of the greatest and most influential filmmakers in the history of cinema. Kurosawa displayed a bold, dynamic style, strongly influenced by Western cinema yet distinct from it; he was involved with all aspects of film production.",
-							"Birth": "1910-1998"
-						}
-					</code>
-					</td>
-				</tr>
+
+				<!-- register new user -->
 				<tr>
 					<td>Add a new user</td>
 					<td>/users</td>
@@ -168,16 +103,120 @@
 						<code>
 						{
 							"Username": "Kim-Novak",
-							"Password": "Vertigo123",
+							"Password": "$2b$10$LUH.8iIEnXeWblWhrB.rd.LD/3rbkshj1Csdgek",
 							"Email": "kim.novak@gmail.com",
 							"Birthday": "13-02-1933",
-							"favouriteMovies": [],
+							"FavouriteMovies": [],
 							"_id": "d224bc3f-6174-481b-836f-e3a210fe6a45",
 							"__v": 0
 					}
 					</code>
 					</td>
 				</tr>
+
+				<!-- login request -->
+				<tr>
+					<td>Login existing user</td>
+					<td>/users</td>
+					<td>GET</td>
+					<td>A JSON object holding user data, structured like this:
+						<code>
+						{
+							"Username": "Kim-Novak",
+							"Password": "Vertigo123"
+						}
+					</code>
+					</td>
+					<td>A JSON object holding user data, an ID, a token and a array for placing favourite movies:
+						<code>
+						"user": {
+							"_id": "d224bc3f-6174-481b-836f-e3a210fe6a45",
+							"Username": "Kim-Novak",
+							"Password": "$2b$10$LUH.8iIEnXeWblWhrB.rd.LD/3rbkshj1Csdgek",
+							"Email": "kim.novak@gmail.com",
+							"Birthday": "13-02-1933",
+							"FavouriteMovies": [],
+							"__v": 0
+					   },
+					   "token": "eyJBJVERJU6nbcjdhhHJGEFJBRJ.eyFgarfKLNG4"
+					</code>
+					</td>
+				</tr>
+
+				 <!-- request all movies -->
+				<tr>
+					<td>Get a list of ALL movies</td>
+					<td>/movies</td>
+					<td>GET</td>
+					<td>none</td>
+					<td>A JSON object holding an array with all movies.</td>
+				</tr>
+
+				 <!-- request info on a movie by name-->
+				<tr>
+					<td>Get data about a single movie by title</td>
+					<td>/movies/:Title</td>
+					<td>GET</td>
+					<td>None</td>
+					<td>A JSON object holding data about a single movie:
+						<code>
+							"_id": "64f5d33c431c7b9fgh9plen34qq"
+							"Title": "Ran",
+							"Description": "A powerful but elderly warlord, decides to divide his kingdom among his three sons ultimately starting a fatal rivalry in their quest for power.",
+							"ReleaseYear": 1985,
+							"ImagePath": "www.critikat.com/wp-content/uploads/2016/04/artoff7462.jpg",
+						    "Featuredd": false,
+							{
+								"Genre": {
+									"Name": "Drama",
+									"Description": "Drama is a category or genre of narrative fiction (or semi-fiction) intended to be more serious than humorous in tone. "
+								},
+								"Director": {
+								"Name": "Akira  Kurosawa",
+								"Bio": "Kurosawa Akira was a Japanese filmmaker who directed 30 films in a career spanning over five decades. He is widely regarded as one of the greatest and most influential filmmakers in the history of cinema. Kurosawa displayed a bold, dynamic style, strongly influenced by Western cinema yet distinct from it; he was involved with all aspects of film production.",
+								"Birth": 1910,
+								"Death": 1998
+							    },
+					     	}
+					</code>
+					</td>
+				</tr>
+
+				<!-- request genre by name -->
+				<tr>
+					<td>Get data/description about a genre by genre's name</td>
+					<td>/movies/genre/:genreName</td>
+					<td>GET</td>
+					<td>none</td>
+					<td>A JSON object holding data about a genre containing name and description properties. Example:
+						<code>
+							"Genre": {
+								"Name": "Drama",
+								"Description": "Is a category or genre of narrative fiction (or semi-fiction) intended to be more serious than humorous in tone."
+							}
+					</code>
+					</td>
+				</tr>
+
+				 <!-- request director by name -->
+				<tr>
+					<td>Get data about a director by director's name: bio, birth year, death year</td>
+					<td>/movies/directors/:directorName</td>
+					<td>GET</td>
+					<td>none</td>
+					<td>A JSON object holding data about a director:
+						<code>
+						{
+							"Name": "Kurosawa Akira",
+							"Bio": "A Japanese filmmaker who directed 30 films in a career spanning over five decades. He is widely regarded as one of the greatest and most influential filmmakers in the history of cinema. Kurosawa displayed a bold, dynamic style, strongly influenced by Western cinema yet distinct from it; he was involved with all aspects of film production.",
+							"Birth": 1910,
+							"Death": 1998
+						}
+					</code>
+					</td>
+				</tr>
+
+				<!-- Update user info -->
 				<tr>
 					<td>Update user info</td>
 					<td>/users/:Username</td>
@@ -185,65 +224,72 @@
 					<td>A JSON object holding the user info that should be changed. It should contain at least one of the following key/value pairs:
 						<code>
 						{
-							"Username": String,
-							"Password": String,
-							"Email": String,
-							"Birthday": Data
+							"Username": "Kim-Novak",
+							"Password": "$2b$10$LUH.8iIEnXeWblWhrB.rd.LD/3rbkshj1Csdgek",
+							"Email": "updated@gmail.com",
+							"Birthday": "13-02-1933"
 						}
 					</code>
 					</td>
 					<td>A JSON object holding all user info with all key/values pair updated:
 						<code>
 						{
-							"Username": "Loulou-Chi",
-							"Password": "Bananasplit",
-							"Email": "loulou.chi@gmail.com",
-							"Birthday": "06-04-1993",
-							"favouriteMovies": [],
+
+							"Username": "Kim-Novak",
+							"Password": "$2b$10$LUH.8iIEnXeWblWhrB.rd.LD/3rbkshj1Csdgek",
+							"Email": "updated@gmail.com",
+							"Birthday": "13-02-1933",
+							"FavouriteMovies": [],
 							"_id": "d224bc3f-6174-481b-836f-e3a210fe6a45",
 							"__v": 0
 					}
 					</code>
 					</td>
 				</tr>
+
+				<!-- Add movie to user's favorite -->
 				<tr>
 					<td>Add a movie to user's favourite list</td>
 					<td>/users/:Username/movies/:movieID</td>
 					<td>POST</td>
-					<td>None</td>
-					<td>A JSON object holding all user info with all key/values pair updated:
+					<td>None (No request body required; the movie ID is extracted from the URL)</td>
+					<td>A text response indicating that the movie has been added to the user's favorites. A JSON object holding all user info with all key/values pair updated:
 						<code>
 						{
-							"Username": "Loulou-Chi",
-							"Password": "Bananasplit",
-							"Email": "loulou.chi@gmail.com",
-							"Birthday": "06-04-1993",
-							"favouriteMovies": [],
+							"Username": "Kim-Novak",
+							"Password": "$2b$10$LUH.8iIEnXeWblWhrB.rd.LD/3rbkshj1Csdgek",
+							"Email": "updated@gmail.com",
+							"Birthday": "13-02-1933",
+							"FavouriteMovies": [64f5d33c431c7b9fgh9plen34qq],
 							"_id": "d224bc3f-6174-481b-836f-e3a210fe6a45",
 							"__v": 0
 					}
 					</code>
 					</td>
 				</tr>
+
+				<!-- Remove movie from user's favorite -->
 				<tr>
 					<td>Remove a movie from user's favourite list</td>
 					<td>/users/:Username/movies/:movieID</td>
 					<td>DELETE</td>
-					<td>None</td>
-					<td>A JSON object holding all user info with all key/values pair updated:
+					<td>None (No request body required; the movie ID is extracted from the URL)</td>
+					<td>A text response indicating that the movie has been removed from the user's favorites. A JSON object holding all user info with all key/values pair updated:
 						<code>
 						{
-							"Username": "Loulou-Chi",
-							"Password": "Bananasplit",
-							"Email": "loulou.chi@gmail.com",
-							"Birthday": "06-04-1993",
-							"favouriteMovies": [],
+							"Username": "Kim-Novak",
+							"Password": "$2b$10$LUH.8iIEnXeWblWhrB.rd.LD/3rbkshj1Csdgek",
+							"Email": "updated@gmail.com",
+							"Birthday": "13-02-1933",
+							"FavouriteMovies": [64f5d33c431c7b9fgh9plen34qq],
 							"_id": "d224bc3f-6174-481b-836f-e3a210fe6a45",
 							"__v": 0
 					}
 					</code>
 					</td>
 				</tr>
+
+				<!-- Deregister existing user -->
 				<tr>
 					<td>Allow existing users to deregister</td>
 					<td>/users/:Username</td>
