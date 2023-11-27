@@ -7,7 +7,6 @@ require('./passport'); // Our local passport file
 
 /**
  * Generates JWT token for user authentication.
- * @function
  * @param {Object} user - User object whose token is being generated.
  * @returns {string} - Generated JWT token.
  */
@@ -20,22 +19,12 @@ let generateJWTToken = (user) => {
 }
 
 /**
- * @fileOverview Login module for the application.
- * @module login
- */
-
-/**
  * Sets up user login route.
- * @function
  * @param {Object} router - Express router object.
  */
 module.exports = (router) => {
   /**
-   * Logic for user authentication & login.
-   * @function
-   * @param {Object} req - Express request object.
-   * @param {Object} res - Express response object.
-   * @returns {Object} - JSON object: contains user details & JWT token.
+   * POST login route.
    */
   router.post('/login', (req, res) => {
     passport.authenticate('local', { session: false }, (error, user, info) => {
