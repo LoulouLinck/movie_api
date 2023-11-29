@@ -110,7 +110,7 @@ require('./passport');
 
   // Get a user by username
 app.get('/users/:Username', (req, res) => {
-  Users.findOne({ username: req.params.username })
+  Users.findOne({ Username: req.params.Username })
     .then((user) => {
       res.json(user);
     })
