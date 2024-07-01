@@ -6,8 +6,6 @@
 
 <!-- PROJECT DESCRIPTION -->
 
-# 📖 movies-api <a name="about-project"></a>
-
 **movies-api** is the server-side component of a “movies” web application. This API will provide users with information about different
 movies, directors, and genres.
 
