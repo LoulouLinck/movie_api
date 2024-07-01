@@ -1,8 +1,8 @@
 # 📖 movies-api <a name="about-project"></a>
 
- ** 🚀 Link to CineFlix App:**  https://cineflixxx.netlify.app/
+ 🚀 <a href="https://cineflixxx.netlify.app/">CineFlix App</a>
  <br>
- Link to <a href="https://github.com/LoulouLinck/movie_api">movie_api.</a>
+ Link <a href="https://github.com/LoulouLinck/movie_api">movie_api</a>
 
 <!-- PROJECT DESCRIPTION -->
 
