@@ -4,7 +4,7 @@
  <br>
  Link <a href="https://github.com/LoulouLinck/movie_api">movie_api</a>
 
- <img src="img/endpoints.png">
+ <img src="endpoints.png">
 
 <!-- PROJECT DESCRIPTION -->
 
