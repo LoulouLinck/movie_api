@@ -1,19 +1,8 @@
 # movie_api
 
- **Link to CineFlix App:**  https://cineflixxx.netlify.app/
+ ** 🚀 Link to CineFlix App:**  https://cineflixxx.netlify.app/
  <br>
  Link to <a href="https://github.com/LoulouLinck/movie_api">movie_api.</a>
-<!-- TABLE OF CONTENTS -->
-
-# 📗 Table of Contents
-
-- [📖 About the Project](#about-project)
-  - [🛠 Built With](#built-with)
-    - [Tech Stack](#tech-stack)
-    - [Key Features](#key-features)
-  - [🚀 Live Demo](#live-demo)
-- [👥 Authors](#authors)
-- [🔭 Future Features](#future-features)
 
 <!-- PROJECT DESCRIPTION -->
 
@@ -66,4 +55,4 @@ This was a solo project guided by tutors and mentors from <a href="https://caree
 
 ## 🔭 Future Features <a name="future-features"></a>
 
-Coming up next: client side. I will soon create the frontend that users will interact with to 
+Coming up next: client side. I will soon create the frontend that users will interact with. 
