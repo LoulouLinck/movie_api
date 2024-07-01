@@ -1,4 +1,4 @@
-# movie_api
+# 📖 movies-api <a name="about-project"></a>
 
  ** 🚀 Link to CineFlix App:**  https://cineflixxx.netlify.app/
  <br>
