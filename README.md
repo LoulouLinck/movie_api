@@ -4,6 +4,8 @@
  <br>
  Link <a href="https://github.com/LoulouLinck/movie_api">movie_api</a>
 
+ <img src="img/endpoints.png">
+
 <!-- PROJECT DESCRIPTION -->
 
 **movies-api** is the server-side component of a “movies” web application. This API will provide users with information about different
@@ -29,6 +31,15 @@ The API is a Node.js and Express application that use REST architecture. The dat
   </ul>
 </details>
 
+- **The API contains of more than 3 middleware modules
+- **The API uses a 'package.json'-File
+- **The business logic was modeled with Mongoose
+- **The API provides movie information in JSON Format
+- **The API includes user authentication and authorisation code
+- **The API includes data validation logic
+- **The API meets data security regulations
+- **The API source code is deployed to a publicly accessible platform
+- **The API is deployed with Heroku
 <!-- Features -->
 
 ### Key Features <a name="key-features"></a>
